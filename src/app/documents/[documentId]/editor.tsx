@@ -11,9 +11,15 @@ import TableRow from "@tiptap/extension-table-row";
 import Image from "@tiptap/extension-image";
 import ImageResize from "tiptap-extension-resize-image";
 
+import { useEditorStore } from "@/store/use-editor-store";
+
 export const Editor = () => {
+  const { setEditor } = useEditorStore(); 
+  // Editor inside the container
   const editor = useEditor({
-    // Editor inside the container
+    onCreate({ editor }) {
+      setEditor(editor);
+    },  
     editorProps: {
       attributes: {
         style: "padding-left: 56px; padding-right: 56px;",
