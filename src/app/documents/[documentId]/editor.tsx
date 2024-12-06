@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Table from "@tiptap/extension-table";
 import StarterKit from "@tiptap/starter-kit";
@@ -19,6 +20,7 @@ import { useEditorStore } from "@/store/use-editor-store";
 
 export const Editor = () => {
   const { setEditor } = useEditorStore();
+
   // Editor inside the container
   const editor = useEditor({
     onCreate({ editor }) {
@@ -49,7 +51,7 @@ export const Editor = () => {
       attributes: {
         style: "padding-left: 56px; padding-right: 56px;",
         class:
-          "focus:outline-none print:border-0 bg-white border rounded-sm border-[#c7c7c7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
+          "focus:outline-none print:border-0 bg-white border rounded-sm border-gray-300 flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
       },
     },
     extensions: [
@@ -71,6 +73,15 @@ export const Editor = () => {
       TextStyle,
       Highlight.configure({ multicolor: true }),
       Color,
+      Link.configure({
+        openOnClick: false,
+        linkOnPaste: false,
+        autolink: true,
+        defaultProtocol: "https",
+        HTMLAttributes: {
+          target: "_blank",
+        },
+      }),
     ],
     content: `
         <table>
@@ -89,10 +100,11 @@ export const Editor = () => {
         </table>
       `,
   });
+
   return (
     // Editor outside the container
-    <div className="size-full overflow-x-auto bg-[#f9fbfd] px-4 print:p-0 print:bg-white print:overflow-visible">
-      <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
+    <div className="w-full overflow-x-auto bg-gray-50 px-4 py-6 print:p-0 print:bg-white print:overflow-visible">
+      <div className="min-w-max flex justify-center w-[816px] mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
       </div>
     </div>

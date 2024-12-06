@@ -87,6 +87,8 @@ body {
   }
 }
 
+
+
 .tiptap {
   /* List styles */
   ul,
@@ -265,4 +267,17 @@ body {
   }
 
   /* Image Resizer styles */
+
+  /* Link Styles */
+
+  /* Link styles */
+  a {
+    @apply text-blue-600 hover:text-blue-800;
+    cursor: pointer;
+
+    &:hover {
+      @apply underline;
+    }
+  }
+  /* styles.css */
 }
