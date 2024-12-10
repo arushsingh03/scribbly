@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif, "Bona Nova SC", serif;
+}
+
+.anton-font {
+  font-family: "Anton SC", sans-serif;
 }
 
 @layer base {
@@ -86,8 +90,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
-
 
 .tiptap {
   /* List styles */

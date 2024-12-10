@@ -42,6 +42,8 @@ import { BsFilePdf, BsFiletypeHtml } from "react-icons/bs";
 import { CiGrid2V } from "react-icons/ci";
 import { TfiLayoutGrid4Alt } from "react-icons/tfi";
 import { useEditorStore } from "@/store/use-editor-store";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export const Navbar = () => {
   const { editor } = useEditorStore();
@@ -119,6 +121,21 @@ export const Navbar = () => {
     onDownload(blob, `document.txt`); //TODO USE DOCUMENT NAME
   };
 
+  const onSavePdf = async () => {
+    const page = document.getElementById("editor");
+    if (!page) return;
+
+    const canvas = await html2canvas(page as HTMLElement, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("page.pdf");
+  };
+
   return (
     <nav className="flex items-center justify-between ">
       <div className="flex gap-2 items-center">
@@ -149,7 +166,7 @@ export const Navbar = () => {
                         <BsFiletypeHtml className="size-4 mr-2" />
                         HTML
                       </MenubarItem>
-                      <MenubarItem onClick={() => window.print()}>
+                      <MenubarItem onClick={onSavePdf}>
                         <BsFilePdf className="size-4 mr-2" />
                         PDF
                       </MenubarItem>
