@@ -41,14 +41,84 @@ import {
 import { BsFilePdf, BsFiletypeHtml } from "react-icons/bs";
 import { CiGrid2V } from "react-icons/ci";
 import { TfiLayoutGrid4Alt } from "react-icons/tfi";
+import { useEditorStore } from "@/store/use-editor-store";
 
-const tableOptions = [
-  { label: "Single Cell Table (1x1)", icon: <CiGrid2V className="size-4" /> },
-  { label: "Compact Table (2x2)", icon: <Grid2X2 className="size-4" /> },
-  { label: "Detailed Table (3x3)", icon: <Grid3X3 className="size-4" /> },
-  { label: "Pro Table (4x4)", icon: <TfiLayoutGrid4Alt className="size-4" /> },
-];
 export const Navbar = () => {
+  const { editor } = useEditorStore();
+
+  const tableOptions = [
+    {
+      label: "Single Cell Table (1x1)",
+      icon: <CiGrid2V className="size-4" />,
+      rows: 1,
+      cols: 1,
+    },
+    {
+      label: "Compact Table (2x2)",
+      icon: <Grid2X2 className="size-4" />,
+      rows: 2,
+      cols: 2,
+    },
+    {
+      label: "Detailed Table (3x3)",
+      icon: <Grid3X3 className="size-4" />,
+      rows: 3,
+      cols: 3,
+    },
+    {
+      label: "Pro Table (4x4)",
+      icon: <TfiLayoutGrid4Alt className="size-4" />,
+      rows: 4,
+      cols: 4,
+    },
+  ];
+
+  const insetTable = ({ rows, cols }: { rows: number; cols: number }) => {
+    editor
+      ?.chain()
+      .focus()
+      .insertTable({ rows, cols, withHeaderRow: false })
+      .run();
+  };
+
+  const onDownload = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+  };
+
+  const onSaveJSON = () => {
+    if (!editor) return;
+
+    const content = editor.getJSON();
+    const blob = new Blob([JSON.stringify(content)], {
+      type: "application/json",
+    });
+    onDownload(blob, `document.json`); //TODO USE DOCUMENT NAME
+  };
+
+  const onSaveHTML = () => {
+    if (!editor) return;
+
+    const content = editor.getHTML();
+    const blob = new Blob([content], {
+      type: "text/html",
+    });
+    onDownload(blob, `document.html`); //TODO USE DOCUMENT NAME
+  };
+
+  const onSaveText = () => {
+    if (!editor) return;
+
+    const content = editor.getText();
+    const blob = new Blob([content], {
+      type: "text/plain",
+    });
+    onDownload(blob, `document.txt`); //TODO USE DOCUMENT NAME
+  };
+
   return (
     <nav className="flex items-center justify-between ">
       <div className="flex gap-2 items-center">
@@ -71,19 +141,19 @@ export const Navbar = () => {
                       Save
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveJSON}>
                         <FileJson className="size-4 mr-2" />
                         JSON
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveHTML}>
                         <BsFiletypeHtml className="size-4 mr-2" />
                         HTML
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => window.print()}>
                         <BsFilePdf className="size-4 mr-2" />
                         PDF
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveText}>
                         <FileText className="size-4 mr-2" />
                         TEXT
                       </MenubarItem>
@@ -115,11 +185,15 @@ export const Navbar = () => {
                   Edit
                 </MenubarTrigger>
                 <MenubarContent>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().undo().run()}
+                  >
                     <Undo2 className="size-4 mr-2" />
                     Undo <MenubarShortcut>⌘Z</MenubarShortcut>
                   </MenubarItem>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().redo().run()}
+                  >
                     <Redo2 className="size-4 mr-2" />
                     Redo <MenubarShortcut>⌘Y</MenubarShortcut>
                   </MenubarItem>
@@ -135,7 +209,12 @@ export const Navbar = () => {
                     <MenubarSubTrigger>Table</MenubarSubTrigger>
                     <MenubarSubContent>
                       {tableOptions.map((option, index) => (
-                        <MenubarItem key={index}>
+                        <MenubarItem
+                          key={index}
+                          onClick={() =>
+                            insetTable({ rows: option.rows, cols: option.cols })
+                          }
+                        >
                           {option.icon}
                           <span className="ml-2">{option.label}</span>
                         </MenubarItem>
@@ -156,25 +235,45 @@ export const Navbar = () => {
                       Text
                     </MenubarSubTrigger>
                     <MenubarSubContent className="w-[200px]">
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleBold().run()
+                        }
+                      >
                         <Bold className="size-4 mr-2" />
                         Bold <MenubarShortcut>⌘B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleItalic().run()
+                        }
+                      >
                         <Italic className="size-4 mr-2" />
                         Italic <MenubarShortcut>⌘I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleUnderline().run()
+                        }
+                      >
                         <Underline className="size-4 mr-2" />
                         Underline <MenubarShortcut>⌘U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() =>
+                          editor?.chain().focus().toggleStrike().run()
+                        }
+                      >
                         <Strikethrough className="size-4 mr-2" />
                         Strikethough <MenubarShortcut>⌘S</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() =>
+                      editor?.chain().focus().unsetAllMarks().run()
+                    }
+                  >
                     <RemoveFormatting className="size-4 mr-2" />
                     Clear Formatting
                   </MenubarItem>

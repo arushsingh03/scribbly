@@ -23,7 +23,6 @@ import { LineHeightExtension } from "@/extensions/line-height";
 
 import { Ruler } from "./ruler";
 
-
 export const Editor = () => {
   const { setEditor } = useEditorStore();
 
@@ -98,22 +97,6 @@ export const Editor = () => {
         },
       }),
     ],
-    content: `
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th colspan="3">Description</th>
-            </tr>
-            <tr>
-              <td>Cyndi Lauper</td>
-              <td>Singer</td>
-              <td>Songwriter</td>
-              <td>Actress</td>
-            </tr>
-          </tbody>
-        </table>
-      `,
   });
 
   return (
