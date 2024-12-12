@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 import { SiGoogledocs } from "react-icons/si";
 import { DocumentMenu } from "./document-menu";
 import { Building2, CircleUser } from "lucide-react";
@@ -10,12 +11,13 @@ interface DocumentRowProps {
 }
 
 export const DocumentRow = ({ document }: DocumentRowProps) => {
-    const onNewTabClick = (id: string) => {
-        window.open(`/documents/${id}`, "_blank");
-    }
+  const router = useRouter();
 
   return (
-    <TableRow className="cursor-pointer hover:bg-primary/5">
+    <TableRow
+      onClick={() => router.push(`/documents/${document._id}`)}
+      className="cursor-pointer hover:bg-primary/5"
+    >
       <TableCell className="w-[50px] font-medium">
         <SiGoogledocs className="h-6 w-6 fill-indigo-600" />
       </TableCell>
@@ -35,7 +37,7 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
         <DocumentMenu
           documentId={document._id}
           title={document.title}
-          onNewTab={onNewTabClick}
+          onNewTab={() => window.open(`/documents/${document._id}`, "_blank")}
         />
       </TableCell>
     </TableRow>

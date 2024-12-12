@@ -11,7 +11,7 @@ const DocIdPage = async ({ params }: DocIdPageProps) => {
 
   return (
     <div className="min-h-screen bg-gray-200">
-      <div className="flex flex-col px-4 pt-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-gray-200 print:hidden">
+      <div className="flex flex-col px-4 pt-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-white print:hidden">
         <Navbar />
         <Toolbar />
       </div>

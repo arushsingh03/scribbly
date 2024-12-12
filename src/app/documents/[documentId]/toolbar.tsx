@@ -685,17 +685,17 @@ export const Toolbar = () => {
   ];
 
   return (
-    <div className="bg-indigo-700 px-2.5 py-0.5 rounded-full min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto shadow-sm">
+    <div className="bg-indigo-700 px-3 mb-2 py-0.5 rounded-full min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto shadow-sm">
       {sections[0].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
-      <Separator orientation="vertical" className="h-6 bg-indigo-500" />
+      <Separator orientation="vertical" className="h-6 bg-white mx-2" />
       <FontFamilyButton />
-      <Separator orientation="vertical" className="h-6 bg-indigo-500" />
+      <Separator orientation="vertical" className="h-6 bg-white mx-2" />
       <HeadingLevelButton />
-      <Separator orientation="vertical" className="h-6 bg-indigo-500" />
+      <Separator orientation="vertical" className="h-6 bg-white mx-2" />
       <FontSizeButton />
-      <Separator orientation="vertical" className="h-6 bg-indigo-500" />
+      <Separator orientation="vertical" className="h-6 bg-white mx-2" />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
