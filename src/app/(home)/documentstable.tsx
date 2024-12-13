@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 
 import { DocumentRow } from "./document-row";
+import { Button } from "@/components/ui/button";
 
 interface DocumentsTableProps {
   documents: Doc<"documents">[] | undefined;
@@ -47,7 +48,7 @@ export const DocumentsTable = ({
             <TableBody>
               <TableRow className="hover:bg-transparent border-none">
                 <TableCell colSpan={4} className="h-24 text-center text-black">
-                  No docs found
+                  We couldn't find any documents.
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -60,6 +61,16 @@ export const DocumentsTable = ({
           )}
         </Table>
       )}
+      <div className="flex items-center justify-center">
+        <Button
+          variant="doc"
+          size="sm"
+          onClick={() => loadMore(5)}
+          disabled={status !== "CanLoadMore"}
+        >
+          {status === "CanLoadMore" ? "Load more" : "No more results"}
+        </Button>
+      </div>
     </div>
   );
 };
