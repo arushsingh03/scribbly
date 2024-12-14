@@ -16,6 +16,7 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import { toast } from "sonner";
 
 interface RenameDialogProps {
   documentId: Id<"documents">;
@@ -39,7 +40,23 @@ export const RenameDialog = ({
     setIsUpdating(true);
 
     update({ id: documentId, title: title.trim() || "Untitled" })
-      .then(() => setOpen(false))
+      .then(() => {
+        setOpen(false),
+          toast.success("Document renamed successfully.", {
+            style: {
+              background: "#4338ca",
+              color: "#fff",
+            },
+          });
+      })
+      .catch(() =>
+        toast.error("Oops! Something went wrong.", {
+          style: {
+            background: "#4338ca",
+            color: "#fff",
+          },
+        })
+      )
       .finally(() => {
         setIsUpdating(false);
       });

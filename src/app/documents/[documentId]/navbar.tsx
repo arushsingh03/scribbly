@@ -1,8 +1,15 @@
 "use client";
 
-import Image from "next/image";
+import jsPDF from "jspdf";
 import Link from "next/link";
+import Image from "next/image";
+import html2canvas from "html2canvas";
+import { CiGrid2V } from "react-icons/ci";
 import { DocumentInput } from "./document-input";
+import { TfiLayoutGrid4Alt } from "react-icons/tfi";
+import { useEditorStore } from "@/store/use-editor-store";
+import { BsFilePdf, BsFiletypeHtml } from "react-icons/bs";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import {
   Menubar,
   MenubarContent,
@@ -38,12 +45,6 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
-import { BsFilePdf, BsFiletypeHtml } from "react-icons/bs";
-import { CiGrid2V } from "react-icons/ci";
-import { TfiLayoutGrid4Alt } from "react-icons/tfi";
-import { useEditorStore } from "@/store/use-editor-store";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 export const Navbar = () => {
   const { editor } = useEditorStore();
@@ -299,6 +300,15 @@ export const Navbar = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className="flex gap-3 items-center">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
       </div>
     </nav>
   );

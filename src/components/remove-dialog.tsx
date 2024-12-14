@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 import { CiWarning } from "react-icons/ci";
 import { useMutation } from "convex/react";
@@ -54,7 +55,24 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
             onClick={(e) => {
               e.stopPropagation();
               setIsRemoving(true);
-              remove({ id: documentId }).finally(() => setIsRemoving(false));
+              remove({ id: documentId })
+                .catch(() =>
+                  toast.error("Oops! Something went wrong.", {
+                    style: {
+                      background: "#4338ca",
+                      color: "#fff",
+                    },
+                  })
+                )
+                .then(() =>
+                  toast.success("Document removed successfully.", {
+                    style: {
+                      background: "#4338ca",
+                      color: "#fff",
+                    },
+                  })
+                )
+                .finally(() => setIsRemoving(false));
             }}
           >
             Delete

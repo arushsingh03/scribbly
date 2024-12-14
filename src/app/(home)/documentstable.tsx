@@ -47,7 +47,7 @@ export const DocumentsTable = ({
           {documents.length === 0 ? (
             <TableBody>
               <TableRow className="hover:bg-transparent border-none">
-                <TableCell colSpan={4} className="h-24 text-center text-black">
+                <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
                   We couldn't find any documents.
                 </TableCell>
               </TableRow>

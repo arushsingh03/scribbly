@@ -1,8 +1,9 @@
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { SiGoogledocs } from "react-icons/si";
+import { FaUserCircle } from "react-icons/fa";
 import { DocumentMenu } from "./document-menu";
-import { Building2, CircleUser } from "lucide-react";
+import { BsBuildingsFill } from "react-icons/bs";
 import { Doc } from "../../../convex/_generated/dataModel";
 import { TableCell, TableRow } from "@/components/ui/table";
 
@@ -24,9 +25,9 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
       <TableCell className="font-medium md:w-[45%]">{document.title}</TableCell>
       <TableCell className="text-black hidden md:flex items-center gap-2 ">
         {document.organizationId ? (
-          <Building2 className="size-4 text-indigo-600" />
+          <BsBuildingsFill className="size-4 text-indigo-600" />
         ) : (
-          <CircleUser className="size-4 text-indigo-600" />
+          <FaUserCircle className="size-4 text-indigo-600" />
         )}
         {document.organizationId ? "Organization" : "Personal"}
       </TableCell>

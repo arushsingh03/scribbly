@@ -7,12 +7,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { templates } from "@/constants/template";
+import { toast } from "sonner";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
+import { templates } from "@/constants/template";
 import { api } from "../../../convex/_generated/api";
-import { useState } from "react";
 
 export const TemplatesGallery = () => {
   const router = useRouter();
@@ -22,8 +23,22 @@ export const TemplatesGallery = () => {
   const onTemplateClick = (title: string, initialContent: string) => {
     setIsCreating(true);
     create({ title, initialContent })
+      .catch(() =>
+        toast.error("Oops! Something went wrong.", {
+          style: {
+            background: "#4338ca",
+            color: "#fff",
+          },
+        })
+      )
       .then((documentId) => {
         router.push(`/documents/${documentId}`);
+        toast.success("Document Created!.", {
+          style: {
+            background: "#4338ca",
+            color: "#fff",
+          },
+        });
       })
       .finally(() => {
         setIsCreating(false);
@@ -49,8 +64,8 @@ export const TemplatesGallery = () => {
                 >
                   <button
                     disabled={isCreating}
-                      /* TODO: Add initial content */
-                    onClick={() => onTemplateClick(template.label, "")} 
+                    /* TODO: Add initial content */
+                    onClick={() => onTemplateClick(template.label, "")}
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: "cover",
