@@ -45,6 +45,7 @@ import {
   Underline,
   Undo2,
 } from "lucide-react";
+import { Avatars } from "./avatar";
 
 export const Navbar = () => {
   const { editor } = useEditorStore();
@@ -302,6 +303,7 @@ export const Navbar = () => {
         </div>
       </div>
       <div className="flex gap-3 items-center">
+        <Avatars />
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"
