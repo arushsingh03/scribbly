@@ -1,3 +1,4 @@
+import { Room } from "./room";
 import { Editor } from "./editor";
 import { Navbar } from "./navbar";
 import { Toolbar } from "./toolbar";
@@ -16,12 +17,12 @@ const DocIdPage = async ({ params }: DocIdPageProps) => {
         <Toolbar />
       </div>
       <div className="pt-[114px] print:pt-0">
-        <Editor />
+        <Room>
+          <Editor />
+        </Room>
       </div>
     </div>
   );
 };
 
 export default DocIdPage;
-
-// #5B21D8 indigo-700
