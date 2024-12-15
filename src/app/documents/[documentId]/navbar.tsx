@@ -46,6 +46,7 @@ import {
   Undo2,
 } from "lucide-react";
 import { Avatars } from "./avatar";
+import { Inbox } from "./inbox";
 
 export const Navbar = () => {
   const { editor } = useEditorStore();
@@ -183,11 +184,11 @@ export const Navbar = () => {
                     New Document
                   </MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem>
+                  <MenubarItem className="!bg-indigo-300 hover:!bg-indigo-300/90 mb-1 border-[2px] border-black">
                     <FilePen className="size-4 mr-2" />
                     Rename
                   </MenubarItem>
-                  <MenubarItem className="!bg-red-300 hover:!bg-red-300/90">
+                  <MenubarItem className="!bg-red-300 hover:!bg-red-300/90 border-[2px] border-black">
                     <Trash className="size-4 mr-2" />
                     Remove
                   </MenubarItem>
@@ -304,6 +305,7 @@ export const Navbar = () => {
       </div>
       <div className="flex gap-3 items-center">
         <Avatars />
+        <Inbox />
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"
