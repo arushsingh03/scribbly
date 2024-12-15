@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BiSupport } from "react-icons/bi";
+import { Button } from "@/components/ui/button";
 import { TbAlertTriangleFilled } from "react-icons/tb";
 import { IoArrowBackCircleSharp, IoReloadCircleSharp } from "react-icons/io5";
 
@@ -57,8 +57,10 @@ const ErrorPage = ({
           </Link>
         </Button>
         <Button variant="help">
-          <BiSupport />
-          Need help? Contact Support
+          <Link href="/support" className="flex flex-row items-center gap-2">
+            <BiSupport className="text-gray-500" />{" "}
+            <span>Need help? Contact Support</span>
+          </Link>
         </Button>
       </div>
     </div>
