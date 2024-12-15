@@ -6,12 +6,12 @@ import {
   RoomProvider,
   ClientSideSuspense,
 } from "@liveblocks/react/suspense";
-import { getUsers, getDocuments } from "./actions";
-import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { getUsers, getDocuments } from "./actions";
 import { Id } from "../../../../convex/_generated/dataModel";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { FullscreenLoader } from "@/components/fullscreen-loader";
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
 type User = { id: string; name: string; avatar: string };
 
@@ -52,7 +52,10 @@ export function Room({ children }: { children: ReactNode }) {
       throttle={16}
       resolveUsers={({ userIds }) => {
         return userIds.map(
-          (userId) => users.find((user) => user.id === userId) ?? undefined
+          (userId) => {
+            const user = users.find((user) => user.id === userId);
+            return user ? { name: user.name, avatar: user.avatar, color: '#000000' } : undefined;
+          }
         );
       }}
       resolveMentionSuggestions={({ text }) => {
@@ -76,7 +79,7 @@ export function Room({ children }: { children: ReactNode }) {
     >
       <RoomProvider
         id={params.documentId as string}
-        initialStorage={{ leftMargin: 56, rightMargin: 56 }}
+        initialStorage={{ leftMargin: LEFT_MARGIN_DEFAULT, rightMargin: RIGHT_MARGIN_DEFAULT }}
       >
         <ClientSideSuspense
           fallback={<FullscreenLoader label="Document Loading..." />}
