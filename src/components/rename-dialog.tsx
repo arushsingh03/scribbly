@@ -1,3 +1,4 @@
+/* @typescript-eslint/no-unused-expressions */
 "use client";
 
 import React, { useState } from "react";
@@ -13,10 +14,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { toast } from "sonner";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { toast } from "sonner";
 
 interface RenameDialogProps {
   documentId: Id<"documents">;
@@ -41,22 +42,22 @@ export const RenameDialog = ({
 
     update({ id: documentId, title: title.trim() || "Untitled" })
       .then(() => {
-        setOpen(false),
-          toast.success("Document renamed successfully.", {
-            style: {
-              background: "#4338ca",
-              color: "#fff",
-            },
-          });
+        setOpen(false);
+        toast.success("Document renamed successfully.", {
+          style: {
+            background: "#4338ca",
+            color: "#fff",
+          },
+        });
       })
-      .catch(() =>
+      .catch(() => {
         toast.error("Oops! Something went wrong.", {
           style: {
             background: "#4338ca",
             color: "#fff",
           },
-        })
-      )
+        });
+      })
       .finally(() => {
         setIsUpdating(false);
       });
@@ -73,7 +74,7 @@ export const RenameDialog = ({
             <DialogDescription className="text-center">
               Update the document name to reflect its new purpose or content.
               This change will be immediately saved and visible to all
-              collaborators
+              collaborators.
             </DialogDescription>
           </DialogHeader>
           <div className="my-4">

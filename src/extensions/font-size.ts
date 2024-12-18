@@ -1,3 +1,4 @@
+/* @typescript-eslint/no-unused-vars */
 import "@tiptap/extension-text-style";
 import { Extension } from "@tiptap/react";
 
@@ -5,7 +6,7 @@ declare module "@tiptap/core" {
   interface Commands<ReturnType> {
     fontSize: {
       setFontSize: (size: string) => ReturnType;
-      useFontSize: () => ReturnType;
+      unsetFontSize: () => ReturnType; // Corrected to match the implementation
     };
   }
 }
@@ -24,7 +25,7 @@ export const FontSizeExtension = Extension.create({
         attributes: {
           fontSize: {
             default: null,
-            parseHTML: (element) => element.style.fontSize,
+            parseHTML: (element) => element.style.fontSize || null, // Ensures null when not present
             renderHTML: (attributes) => {
               if (!attributes.fontSize) {
                 return {};
@@ -43,17 +44,17 @@ export const FontSizeExtension = Extension.create({
     return {
       setFontSize:
         (fontSize: string) =>
-        ({ chain }) => {
-          return chain().setMark("textStyle", { fontSize }).run();
-        },
+          ({ chain }) => {
+            return chain().setMark("textStyle", { fontSize }).run();
+          },
       unsetFontSize:
         () =>
-        ({ chain }: { chain: any }) => {
-          return chain()
-            .setMark("textStyle", { fontSize: null })
-            .removeEmptyTextStyle()
-            .run();
-        },
+          ({ chain }) => {
+            return chain()
+              .setMark("textStyle", { fontSize: null })
+              .removeEmptyTextStyle()
+              .run();
+          },
     };
   },
 });

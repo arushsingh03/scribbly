@@ -132,17 +132,17 @@ const SupportPage: React.FC = () => {
                 How can I contact support?
               </h3>
               <p>
-                Simply fill out the contact form on this page, and we'll get
+                Simply fill out the contact form on this page, and we&apos;ll get
                 back to you shortly.
               </p>
             </li>
             <li>
               <h3 className="font-semibold flex items-center">
                 <FaPhoneAlt className="mr-2 text-indigo-600" />
-                What should I do if I can't log in?
+                What should I do if I can&apos;t log in?
               </h3>
               <p>
-                If you're having trouble logging in, try resetting your password
+                If you&apos;re having trouble logging in, try resetting your password
                 or contact support for further assistance.
               </p>
             </li>
