@@ -45,6 +45,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
 
   // Editor inside the container
   const editor = useEditor({
+    autofocus: true,
     immediatelyRender: false,
     onCreate({ editor }) {
       setEditor(editor);
