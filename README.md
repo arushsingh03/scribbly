@@ -12,5 +12,4 @@ Rich Text Editing: Support for text formatting, lists, and other rich text featu
 
 User Authentication: Secure login and access control.
 
-Auto-Save: Changes are saved automatically as you type.
 
