@@ -1,9 +1,9 @@
 "use client";
 
 import { Search, X } from "lucide-react";
-import React, { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import React, { useRef, useState } from "react";
 import { useSearchParam } from "@/hooks/use-search-param";
 
 export const SearchInput = () => {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import { SearchInput } from "./search-input";
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 
 export const Navbar = () => {
   return (
