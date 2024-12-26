@@ -1,12 +1,12 @@
 import { toast } from "sonner";
 import { useMutation } from "convex/react";
-import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
+import { LoaderCircle } from "lucide-react";
 import { useStatus } from "@liveblocks/react";
 import React, { useRef, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { api } from "../../../../convex/_generated/api";
+import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
 import { Id } from "../../../../convex/_generated/dataModel";
-import { LoaderCircle } from "lucide-react";
 
 interface DocumentInputProps {
   title: string;
